@@ -1,0 +1,17 @@
+{
+  "name": "quick-start-workshop",
+  "version": "1.0.0",
+  "description": "Quick Start Workshop",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tyler Nappy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "expres": "0.0.5",
+    "plaid": "^8.2.0"
+  }
+}

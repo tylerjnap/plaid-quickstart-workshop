@@ -1,0 +1,36 @@
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script>
+(async ($) => {
+    const fetchLinkToken = async () => {
+        const response = await fetch('/create-link-token');
+        const { linkToken } = await response.json();
+        return linkToken;
+    };
+
+    const handler = Plaid.create({
+        token: await fetchLinkToken(),
+        onSuccess: async (publicToken, metadata) => {
+            console.log(publicToken);
+            console.log(metadata);
+            await fetch('/token-exchange', {
+                method: 'POST',
+                body: JSON.stringify({ publicToken }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        },
+         onEvent: (metadata) => {
+            console.log(metadata);
+        },
+        onExit: (error, metadata) => {
+            console.log(error, metadata);
+        },
+    });
+    $('#plaid-button').on('click', function(e) { handler.open(); });
+})(jQuery);
+</script>
+
+<h1>Plaid Quick Start Workshop!</h1>
+<button id='plaid-button'>Link your account with Plaid!</button>
