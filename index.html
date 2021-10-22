@@ -4,7 +4,7 @@
 <script>
 (async ($) => {
 
-    const fetchLinkToken = ()=>{
+    const fetchLinkToken = async ()=>{
         const response = await fetch('/create-link-token')
         const {linkToken} = await response.json()
         return linkToken
@@ -26,12 +26,16 @@
         onExit: async(error, metadata) =>{
             console.log(error)
             console.log(metadata)
+        },
+        onEvent: async(metadata)=>{
+            console.log(metadata)
         }
     })
 
     $('#plaid-button').on('click', function(e){handler.open();})
 
 })(jQuery);
+
 </script>
 
 <h1>Plaid Quick Start Workshop!</h1>
