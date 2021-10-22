@@ -20,12 +20,12 @@
 	const plaidClient = new plaid.Client({
 		clientID: process.env.CLIENT_ID,
 		secret: process.env.SECRET,
-		env: plaid.environments.development
+		env: plaid.environments.sandbox
 	})
 
 	app.get('/create-link-token', async(req, res)=>{
 		//rename link_token to linkToken
-		const {link_token: linkToken} = await plaidClient.createLink({
+		const {link_token: linkToken} = await plaidClient.createLinkToken({
 			user: {
 				client_user_id: process.env.CLIENT_ID
 			},
@@ -36,6 +36,7 @@
 		})
 		res.json({linkToken})
 	})
+
 
 	app.post('/token-exchange', async(req, res) =>{
 		//grab public token
